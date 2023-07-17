@@ -1,12 +1,16 @@
 import MainSlider from "./modules/slider/slider-main";
 import MiniSlider from "./modules/slider/slider-mini";
-import Videoplayer from "./modules/playVideo";
+import VideoPlayer from "./modules/playVideo";
 import Difference from "./modules/difference";
 import Forms from "./modules/forms";
 
 window.addEventListener('DOMContentLoaded', () => {
     const slider = new MainSlider({container: '.page', btns: '.next'});
     slider.render();
+
+    const modulesPageSlider = new MainSlider({container: '.moduleapp', btns: '.next',
+    prev: '.prevmodule', next: '.nextmodule'});
+    modulesPageSlider.render();
 
     const showUpSlider = new MiniSlider({container: '.showup__content-slider',
     prev: '.showup__prev', next: '.showup__next', activeClass: 'card-active',
@@ -23,8 +27,8 @@ window.addEventListener('DOMContentLoaded', () => {
     activeClass: 'feed__item-active'})
     feedSlider.init();
 
-    const player = new Videoplayer('.play', '.overlay');
-    player.init();
+    new VideoPlayer('.play', '.overlay').init();
+    new VideoPlayer('.module__video-item .play', '.overlay').init();
 
     new Difference('.officerold', '.officernew', '.officer__card-item').init();
     new Forms('form').init();
