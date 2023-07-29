@@ -42,18 +42,22 @@ export default class MiniSlider extends Slider {
     }
 
     bindTriggers() {
-        this.prev.addEventListener('click', () => {
-            for (let i = this.slides.length - 1; i > 0; i--) {
-                if (this.slides[i].tagName !== "BUTTON") {
-                    let active = this.slides[i];
-                    this.container.insertBefore(active, this.slides[0]);
-                    this.decorizeSlides();
-                    break;
+        this.prev.forEach(prevBtn => {
+            prevBtn.addEventListener('click', () => {
+                for (let i = this.slides.length - 1; i > 0; i--) {
+                    if (this.slides[i].tagName !== "BUTTON") {
+                        let active = this.slides[i];
+                        this.container.insertBefore(active, this.slides[0]);
+                        this.decorizeSlides();
+                        break;
+                    }
                 }
-            }
+            });
         });
 
-        this.next.addEventListener('click', () => this.nextSlide());
+        this.next.forEach(nextBtn => {
+            nextBtn.addEventListener('click', () => this.nextSlide());
+        });
     }
 
     bindAutoplayStop(elem) {
@@ -62,7 +66,7 @@ export default class MiniSlider extends Slider {
         });
 
         elem.addEventListener('mouseleave', () => {
-            this.paused = setInterval(() => this.nextSlide(), 5000);
+            this.paused = setInterval(() => this.nextSlide(), 3000);
         });
     }
 
@@ -79,10 +83,10 @@ export default class MiniSlider extends Slider {
             this.decorizeSlides();
 
             if (this.autoplay) {
-                this.paused = setInterval(() => this.nextSlide(), 5000);
+                this.paused = setInterval(() => this.nextSlide(), 3000);
 
-                this.bindAutoplayStop(this.prev);
-                this.bindAutoplayStop(this.next);
+                this.bindAutoplayStop(this.prev[0]);
+                this.bindAutoplayStop(this.next[0]);
                 this.bindAutoplayStop(this.container);
             }
         } catch (e) {}

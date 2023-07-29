@@ -42,7 +42,8 @@ export default class MainSlider extends Slider {
 
     bindTriggers() {
         this.btns.forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
                 this.changeSlides(1);
             });
 
